@@ -1,0 +1,30 @@
+{
+  "name": "randomizer",
+  "version": "1.0.0",
+  "description": "Random quote generator",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Gerry",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "config": "^1.30.0",
+    "express": "^4.15.4",
+    "express-session": "latest",
+    "express-formidable": "^1.0.0",
+    "formidable": "^1.2.1",
+    "shortid": "^2.2.8",
+    "uuid": "^3.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deadcoder0904/random-quote-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/deadcoder0904/random-quote-generator/issues"
+  },
+  "homepage": "https://github.com/deadcoder0904/random-quote-generator#readme"
+}
