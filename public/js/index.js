@@ -11,8 +11,8 @@ function getQuote(quote, author) {
 
       //console.log(data[0])
       //console.log(data[0].quote)
-      quote.html("<i class='fa fa-quote-left'> </i>" + " " + data.quote);
-      author.html(data.author);
+      quote.html("<i class='fa fa-quote-left'> </i>" + " " + data[0].quote);
+      author.html(data[0].author);
     }
   });
 }

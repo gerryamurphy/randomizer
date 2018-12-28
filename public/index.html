@@ -3,17 +3,15 @@
   <head>
     <meta charset="UTF-8">
     <title>Random Quote Generator</title>
-    
-    
-    
+
+
+
     <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-<link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
+    <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
 
-        <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!--<link rel="stylesheet" href="assets/css/style.op-app.css">-->
 
-    
-    
-    
   </head>
 
   <body>
@@ -22,6 +20,17 @@
   <head>
     <title>Random Quote Generator</title>
   </head>
+
+  <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button"  id="mydropdown" data-toggle="dropdown">Catagory
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item active" href="#">Random</a></li>
+      <li><a class="dropdown-item" href="#">Movie</a></li>
+      <li><a class="dropdown-item" href="#">Science</a></li>
+    </ul>
+  </div>
+
   <body class="change">
     <h1 class="text-center title">Random Quote Generator</h1>
     <div class="text-center box">
@@ -34,17 +43,91 @@
                 id="button">
           Random
         </button>
+
+
       </div>
     </div>
     <h3 class="text-center title">Created by <a href="http://codepen.io/deadcoder0904">Akshay Kadam</a></h3>
   </body>
 </html>
-    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="js/index.js"></script>
 
-    
-    
-    
+<script>
+
+        $(".dropdown-menu li a").click(function(){
+          $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+          //$(this).parents(".mydropdown").find('.btn').val($(this).data('value'));
+
+        });
+
+       $('.dropdown-menu a').click(function(){
+          //$('#mydropdown').text($(this).text());
+         catagory = $('#mydropdown').text()
+          console.log(catagory)
+          //$('#mydropdown').text($(this).text() + ' <span class="caret"></span>');
+         });
+
+        function getQuote(quote, author) {
+          $.ajax({
+            headers: {
+              'X-Mashape-Key': 'b0imCVpzwJmshep20kRdIRnPj6VYp13vCytjsnlovm6pc8w6Dt',
+              'Accept': 'application/json',
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            url: 'https://andruxnet-random-famous-quotes.p.mashape.com/?cat=',
+            success: function(data) {
+              //console.dir(data[0])
+
+              //console.log(data[0])
+              //console.log(data[0].quote)
+              quote.html("<i class='fa fa-quote-left'> </i>" + " " + data[0].quote);
+              author.html(data[0].author);
+            }
+          });
+        }
+
+        function changeAll(change, quote, author, changeCSS) {
+          change.css('background', changeCSS);
+          getQuote(quote, author);
+          //console.log(quote)
+        }
+        $(document).ready(function() {
+          var i = 0;
+          var colors = [
+            '#27ae60',
+            '#2c3e50',
+            '#16a085',
+            '#e74c3c',
+            '#9b59b6',
+            '#342224',
+            '#BDBB99',
+            '#FB6964',
+            "#C63D0F",
+            "#3B3738",
+            "#005A31",
+            '#472E32',
+            "#558C89",
+            "#f39c12",
+            "#77b1a9"
+          ];
+          var change = $(".change");
+          var quote = $("#quote");
+          var author = $("#author");
+          //var catagory = $('#dropdown option:selected').name();
+          //var catagory = $('#dropdown').find(":selected").text();
+          //console.log("catagory is", catagory)
+
+          changeAll(change, quote, author, colors[(i++) % 15]);
+          $("#button").click(function() {
+            changeAll(change, quote, author, colors[(i++) % 15]);
+          });
+        });
+
+
+
+</script>
   </body>
 </html>
