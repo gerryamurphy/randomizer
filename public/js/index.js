@@ -1,4 +1,4 @@
-function getQuote(quote, author) {
+function getQuote(quote, author, catagory) {
   $.ajax({
     headers: {
       'X-Mashape-Key': 'b0imCVpzwJmshep20kRdIRnPj6VYp13vCytjsnlovm6pc8w6Dt',
@@ -17,9 +17,9 @@ function getQuote(quote, author) {
   });
 }
 
-function changeAll(change, quote, author, changeCSS) {
+function changeAll(change, quote, author, changeCSS,catagory) {
   change.css('background', changeCSS);
-  getQuote(quote, author);
+  getQuote(quote, author, catagory);
   //console.log(quote)
 }
 $(document).ready(function() {
@@ -44,6 +44,7 @@ $(document).ready(function() {
   var change = $(".change");
   var quote = $("#quote");
   var author = $("#author");
+
   changeAll(change, quote, author, colors[(i++) % 15]);
   $("#button").click(function() {
     changeAll(change, quote, author, colors[(i++) % 15]);
