@@ -7,6 +7,12 @@
   color: #fff;
 }
 
+#catagory,
+#url{
+    display: inline-block;
+    vertical-align: top;
+}
+
 #box1 {
   background: #9a9a9a;
   align-items: center;
