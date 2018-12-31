@@ -21,15 +21,31 @@
     <title>Random Quote Generator</title>
   </head>
 
-  <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button"  id="mydropdown" data-toggle="dropdown">Catagory
+<div class="row">
+<div class="col-xs-1">
+  <div class="dropdown class="col-xs-2"">
+    <button class="btn btn-primary dropdown-toggle" type="button"  id="catagory" data-toggle="dropdown">Catagory
     <span class="caret"></span></button>
     <ul class="dropdown-menu">
-      <li class="dropdown-item "> <a href="#">Random</a></li>
-      <li class="dropdown-item "> <a href="#">Movie</a></li>
-      <li class="dropdown-item "> <a href="#">Science</a></li>
+      <li class="dropdown-item active"> <a href="#">Random</a></li>
+      <li class="dropdown-item "> <a href="#">Movies</a></li>
+      <li class="dropdown-item "> <a href="#">Famous</a></li>
+    </ul>
+ </div>
+  </div>
+<div class="col-xs-2">
+  <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button"  id="url" data-toggle="dropdown">Select Url
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li class="dropdown-item active"> <a href="#">andruxnet</a></li>
+      <li class="dropdown-item "> <a href="#">wanyang</a></li>
+
     </ul>
   </div>
+</div>
+</div>
+
 
   <body class="change">
     <h1 class="text-center title">Random Quote Generator</h1>
@@ -41,43 +57,88 @@
         </blockquote>
         <button class="change btn btn-lg"
                 id="button">
-          Random
+          Generate
         </button>
 
 
       </div>
     </div>
-    <h3 class="text-center title">Created by <a href="http://codepen.io/deadcoder0904">Akshay Kadam</a></h3>
+    <h3 class="text-center title">Updated by <a href="http://codepen.io/deadcoder0904">Gerry</a></h3>
   </body>
 </html>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <!--<script src="js/index.js"></script>-->ra
+        <!--<script src="js/index.js"></script>-->
 
 <script>
+        var catagory;
 
         $(".dropdown-menu li a").click(function(){
           $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
-          //$(this).parents(".mydropdown").find('.btn').val($(this).data('value'));
-
         });
 
        $('.dropdown-menu a').click(function(){
-          //$('#mydropdown').text($(this).text());
-         catagory = $('#mydropdown').text()
-          console.log(catagory)
+         catagory = $('#catagory').text()
+         catagory = catagory.toLowerCase()
+         url = $('#url').text()
+         url = url.toLowerCase()
+
+          console.log(catagory, url)
           //$('#mydropdown').text($(this).text() + ' <span class="caret"></span>');
          });
 
-        function getQuote(quote, author) {
+        function getQuote(quote, author, catagory, urlselected) {
+          var url, key;
+          if (catagory === undefined) {
+            catagory = ''
+          }
+          if (urlselected === undefined) {
+            urlselected = 'andruxnet'
+          }
+          console.log(catagory)
+          if (urlselected == "wanyang") {
+            url = 'https://amarlianna-wanyang-quote-v1.p.mashape.com/quote?wy=girl'
+            key = 'xs1xxb7veHmshLgTZiSJNBwc4U7rp1iKERhjsnYagDK7AGZBKE'
+          } else if (urlselected == "andruxnet") {
+            var url = 'https://andruxnet-random-famous-quotes.p.mashape.com/?cat=' + catagory;
+            key = 'b0imCVpzwJmshep20kRdIRnPj6VYp13vCytjsnlovm6pc8w6Dt'
+
+            // These code snippets use an open-source library. http://unirest.io/nodejs
+//unirest.post("https://andruxnet-random-famous-quotes.p.mashape.com/?cat=movies&count=10")
+//.header("X-Mashape-Key", "xs1xxb7veHmshLgTZiSJNBwc4U7rp1iKERhjsnYagDK7AGZBKE")
+//.header("Content-Type", "application/x-www-form-urlencoded")
+//.header("Accept", "application/json")
+//.end(function (result) {
+//  console.log(result.status, result.headers, result.body);
+//});
+
+
+
+// These code snippets use an open-source library. http://unirest.io/nodejs
+//unirest.post("https://amarlianna-wanyang-quote-v1.p.mashape.com/quote?wy=girl")
+//.header("X-Mashape-Key", "xs1xxb7veHmshLgTZiSJNBwc4U7rp1iKERhjsnYagDK7AGZBKE")
+//.header("Content-Type", "application/x-www-form-urlencoded")
+//.header("Accept", "application/json")
+//.send("quote=quote")
+//.end(function (result) {
+//  console.log(result.status, result.headers, result.body);
+//});
+          }
+
+
+
+
+
+          //var url = 'https://andruxnet-random-famous-quotes.p.mashape.com/?cat=' + catagory;
+          console.log(url, key);
           $.ajax({
             headers: {
-              'X-Mashape-Key': 'b0imCVpzwJmshep20kRdIRnPj6VYp13vCytjsnlovm6pc8w6Dt',
+              'X-Mashape-Key': key,
               'Accept': 'application/json',
               'Content-Type': 'application/x-www-form-urlencoded'
             },
-            url: 'https://andruxnet-random-famous-quotes.p.mashape.com/?cat=',
+            url: url,
             success: function(data) {
               //console.dir(data[0])
 
@@ -91,27 +152,27 @@
 
         function changeAll(change, quote, author, changeCSS) {
           change.css('background', changeCSS);
-          getQuote(quote, author);
-          //console.log(quote)
+          getQuote(quote, author, catagory);
+          console.log(catagory)
         }
         $(document).ready(function() {
           var i = 0;
           var colors = [
-            '#27ae60',
-            '#2c3e50',
-            '#16a085',
-            '#e74c3c',
-            '#9b59b6',
-            '#342224',
-            '#BDBB99',
-            '#FB6964',
-            "#C63D0F",
+            //'#27ae60',
+            //'#2c3e50',
+            //'#16a085',
+            //'#e74c3c',
+            //'#9b59b6',
+            //'#342224',
+            //'#BDBB99',
+            //'#FB6964',
+            //"#C63D0F",
             "#3B3738",
-            "#005A31",
-            '#472E32',
-            "#558C89",
-            "#f39c12",
-            "#77b1a9"
+            //"#005A31",
+            //'#472E32',
+            //"#558C89",
+            //"#f39c12",
+            //"#77b1a9"
           ];
           var change = $(".change");
           var quote = $("#quote");
