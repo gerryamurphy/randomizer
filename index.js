@@ -1,3 +1,6 @@
+//http://10.36.31.154:4004/#home
+//https://codeburst.io/how-i-built-my-random-quote-generator-7d77f5e9a6a8
+//https://github.com/deadcoder0904/random-quote-generator/
 var express = require('express');
 var session  = require('express-session');
 var favicon = require('serve-favicon');
